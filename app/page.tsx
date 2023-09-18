@@ -1,11 +1,7 @@
+import React from "react";
+
 function Home() {
-  return (
-    <main className="p-4">
-      <header>
-        <h1>Calorie Tracker</h1>
-      </header>
-    </main>
-  );
+  return <div>Home</div>;
 }
 
 export default Home;
