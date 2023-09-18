@@ -1,6 +1,7 @@
 "use client";
 
 import * as z from "zod";
+import { signIn } from "next-auth/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Form } from "@/components/ui/form";
@@ -37,6 +38,8 @@ function SignInForm() {
     console.log(values);
   };
 
+  const loginWithGoogle = () => signIn("google", { callbackUrl: "/dashboard" });
+
   return (
     <Form {...form}>
       <Card className="max-w-[400px] w-full">
@@ -56,7 +59,12 @@ function SignInForm() {
             <Button type="submit" className="w-full">
               Sign In
             </Button>
-            <Button variant="outline" className="w-full">
+            <Button
+              onClick={loginWithGoogle}
+              variant="outline"
+              className="w-full"
+              type="button"
+            >
               Continue with Google
             </Button>
           </form>
