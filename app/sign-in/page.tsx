@@ -1,4 +1,4 @@
-import SignInForm from "./SignInForm";
+import SignInForm from "./_components/SignInForm";
 
 function SignIn() {
   return (
