@@ -7,8 +7,8 @@ import WeightHistory from "./_components/WeightHistory";
 function Dashboard() {
   return (
     <main className="p-8">
-      <div className="space-y-4">
-        <div className="flex gap-4">
+      <div className="space-y-10">
+        <div className="flex gap-2">
           <TargetCalorie />
           <CalorieConsumed />
         </div>
