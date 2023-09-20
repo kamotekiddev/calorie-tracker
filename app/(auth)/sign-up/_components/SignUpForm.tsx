@@ -1,10 +1,11 @@
 "use client";
 
-import * as z from "zod";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Form } from "@/components/ui/form";
+import { isAxiosError } from "axios";
 import {
   Card,
   CardContent,
@@ -13,13 +14,13 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-import { SignUpFormSchema } from "@/model/user-schema";
+import { SignUpFormSchema, SignUpFormFields } from "@/model/user-schema";
+import { useSignUp } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
 import FormInput from "@/components/form-elements/FormInput";
 
-type SignUpFormField = z.infer<typeof SignUpFormSchema>;
-
-const defaultValues: SignUpFormField = {
+const defaultValues: SignUpFormFields = {
   email: "",
   password: "",
   name: "",
@@ -27,13 +28,29 @@ const defaultValues: SignUpFormField = {
 };
 
 function SignUpForm() {
-  const form = useForm<SignUpFormField>({
+  const router = useRouter();
+  const { toast } = useToast();
+  const signUp = useSignUp();
+
+  const form = useForm<SignUpFormFields>({
     defaultValues,
     resolver: zodResolver(SignUpFormSchema),
   });
 
-  const onSubmit = (values: SignUpFormField) => {
-    console.log(values);
+  const onSubmit = async (values: SignUpFormFields) => {
+    try {
+      await signUp.mutateAsync(values);
+      router.replace("/dashboard");
+    } catch (error) {
+      if (isAxiosError<{ message: string }>(error))
+        toast({
+          title: "Error Occured",
+          description:
+            error.response?.data.message ||
+            "Something went wrong, Please try again later.",
+          variant: "destructive",
+        });
+    }
   };
 
   return (
@@ -56,11 +73,15 @@ function SignUpForm() {
             />
             <FormInput
               name="confirm_password"
-              label="Confirm Passowrd"
+              label="Confirm Password"
               type="password"
               control={form.control}
             />
-            <Button type="submit" className="w-full">
+            <Button
+              type="submit"
+              className="w-full"
+              disabled={signUp.isLoading}
+            >
               Sign Up
             </Button>
           </form>

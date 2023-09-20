@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
     const result = SignUpFormSchema.safeParse(body);
 
     if (!result.success)
-      return NextResponse.json({ error: result.error.issues }, { status: 400 });
+      return NextResponse.json({ message: "Invalid Data" }, { status: 400 });
 
     const hashedPassword = await bcrypt.hash(body.password, 10);
 

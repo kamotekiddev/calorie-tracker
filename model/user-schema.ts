@@ -14,3 +14,5 @@ export const SignUpFormSchema = z
         path: ["confirm_password"],
       });
   });
+
+export type SignUpFormFields = z.infer<typeof SignUpFormSchema>;
