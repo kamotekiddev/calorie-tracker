@@ -2,6 +2,7 @@
 
 import * as z from "zod";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Form } from "@/components/ui/form";
@@ -13,6 +14,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
 import FormInput from "@/components/form-elements/FormInput";
 import Link from "next/link";
 
@@ -29,14 +31,23 @@ const defaultValues: SignInFormField = {
 };
 
 function SignInForm() {
+  const router = useRouter();
+  const { toast } = useToast();
   const form = useForm<SignInFormField>({
     defaultValues,
     resolver: zodResolver(signInFormSchema),
   });
 
-  const onSubmit = (values: SignInFormField) => {
-    console.log(values);
-  };
+  const onSubmit = (values: SignInFormField) =>
+    signIn("credentials", { ...values, redirect: false }).then((res) => {
+      if (!res?.ok || res?.error)
+        toast({
+          title: "Error Occured",
+          description: "Error signing in",
+          variant: "destructive",
+        });
+      router.replace("/dashboard");
+    });
 
   const loginWithGoogle = () => signIn("google", { callbackUrl: "/dashboard" });
 
@@ -54,6 +65,7 @@ function SignInForm() {
             <FormInput
               name="password"
               label="Password"
+              type="password"
               control={form.control}
             />
             <Button type="submit" className="w-full">
