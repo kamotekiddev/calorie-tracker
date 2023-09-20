@@ -73,7 +73,7 @@ function SignInForm() {
           <p className="text-sm w-full text-center">
             Need an account?{" "}
             <Link
-              href="/"
+              href="/sign-up"
               className="text-primary hover:underline font-semibold"
             >
               Sign Up
