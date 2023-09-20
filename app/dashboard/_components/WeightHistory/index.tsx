@@ -12,7 +12,7 @@ function WeightHistory() {
           View All
         </Link>
       </div>
-      <section className="grid gap-2">
+      <section className="border rounded-lg border-b-0 overflow-hidden">
         <WeightHistoryCard />
         <WeightHistoryCard />
         <WeightHistoryCard />

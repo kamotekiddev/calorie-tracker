@@ -8,12 +8,12 @@ import {
 
 function CalorieIntakeListItem() {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="font-black">120</CardTitle>
+    <Card className="shadow-none border-t-0 border-x-0 rounded-none border-b">
+      <CardHeader className="p-4">
+        <CardTitle className="font-black leading-none">120</CardTitle>
         <CardDescription className="text-primary">Calories</CardDescription>
       </CardHeader>
-      <CardContent>200 grams white rice rice</CardContent>
+      <CardContent className="pt-0">200 grams white rice rice</CardContent>
     </Card>
   );
 }

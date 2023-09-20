@@ -7,10 +7,10 @@ import {
 
 function WeightHistoryCard() {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>78.9</CardTitle>
+    <Card className="border-x-0 border-t-0 rounded-none shadow-none border-b">
+      <CardHeader className="p-4">
         <CardDescription className="text-primary">Kg</CardDescription>
+        <CardTitle className="font-black">78.9</CardTitle>
       </CardHeader>
     </Card>
   );

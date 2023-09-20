@@ -11,7 +11,7 @@ function CalorieIntakeHistory() {
           View All
         </Link>
       </div>
-      <section className="grid gap-2">
+      <section className="grid border border-b-none rounded-lg overflow-hidden">
         <CalorieIntakeListItem />
         <CalorieIntakeListItem />
         <CalorieIntakeListItem />
