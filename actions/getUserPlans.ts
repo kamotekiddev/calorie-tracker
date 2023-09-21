@@ -1,19 +1,19 @@
 import client from "@/lib/client";
 import getCurrentUser from "@/lib/getCurrentUser";
 
-const getCurrentlyUsedPlan = async () => {
+const getUserPlans = async () => {
   try {
     const user = await getCurrentUser();
     if (!user) throw new Error("Unauthorized");
 
-    const currenlyUsedPlan = await client.plan.findUnique({
-      where: { used_by_id: user.id },
+    const plans = await client.plan.findMany({
+      where: { user_id: user.id },
     });
 
-    return { currenlyUsedPlan };
+    return { plans };
   } catch (error) {
     return { error };
   }
 };
 
-export default getCurrentlyUsedPlan;
+export default getUserPlans;
