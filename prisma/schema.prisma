@@ -43,14 +43,14 @@ model Account {
 }
 
 model Plan {
-  id              String @id @default(uuid())
+  id              String  @id @default(uuid())
   target_calories Int
   name            String
   user_id         String
-  used_by_id      String @unique
+  used_by_id      String? @unique
 
-  user    User @relation("user_plans", fields: [user_id], references: [id])
-  used_by User @relation("used_plan", fields: [used_by_id], references: [id])
+  user    User  @relation("user_plans", fields: [user_id], references: [id])
+  used_by User? @relation("used_plan", fields: [used_by_id], references: [id])
 }
 
 model CalorieIntake {

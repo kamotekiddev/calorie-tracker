@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -14,6 +15,7 @@ import {
 import FormInput from "@/components/form-elements/FormInput";
 import { Form } from "@/components/ui/form";
 import { PlanFields, PlanSchema } from "@/model/plan-sechema";
+import useCreatePlan from "@/hooks/usePlan";
 
 const defaultValues: PlanFields = {
   target_calories: 1500,
@@ -21,13 +23,19 @@ const defaultValues: PlanFields = {
 };
 
 function CreatePlan() {
+  const router = useRouter();
+  const createPlan = useCreatePlan();
+
   const form = useForm<PlanFields>({
     defaultValues,
     resolver: zodResolver(PlanSchema),
   });
 
-  const onSubmit = (values: PlanFields) => {
-    console.log(values);
+  const onSubmit = async (values: PlanFields) => {
+    try {
+      await createPlan.mutateAsync(values);
+      router.replace("/dashboard");
+    } catch (error) {}
   };
 
   return (
@@ -53,7 +61,9 @@ function CreatePlan() {
               />
             </CardContent>
             <CardFooter className="flex justify-end">
-              <Button type="submit">Create Plan</Button>
+              <Button disabled={createPlan.isLoading} type="submit">
+                Create Plan
+              </Button>
             </CardFooter>
           </Card>
         </form>
