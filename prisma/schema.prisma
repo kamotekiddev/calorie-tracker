@@ -43,26 +43,32 @@ model Account {
 }
 
 model Plan {
-  id              String  @id @default(uuid())
+  id              String   @id @default(uuid())
   target_calories Int
   name            String
   user_id         String
-  used_by_id      String? @unique
+  used_by_id      String?  @unique
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 
   user    User  @relation("user_plans", fields: [user_id], references: [id])
   used_by User? @relation("used_plan", fields: [used_by_id], references: [id])
 }
 
 model CalorieIntake {
-  id          String @id @default(uuid())
+  id          String   @id @default(uuid())
   calories    Int
   description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
   user_id String
   User    User   @relation(fields: [user_id], references: [id])
 }
 
 model Weight {
-  id    String @id @default(uuid())
-  weigh Int
+  id        String   @id @default(uuid())
+  weigh     Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
