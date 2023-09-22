@@ -20,7 +20,9 @@ async function TargetCalorie() {
       </CardHeader>
       <CardContent>
         {!currentlyUsedPlan && (
-          <CardTitle className="text-white">No Plan Selected</CardTitle>
+          <CardTitle className="text-white text-3xl">
+            No Plan Selected
+          </CardTitle>
         )}
         <CardTitle className="text-5xl font-black text-white">
           {currentlyUsedPlan?.target_calories}
