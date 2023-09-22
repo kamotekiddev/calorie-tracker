@@ -1,4 +1,5 @@
-import React from "react";
+import getCurrentlyUsedPlan from "@/actions/getCurrentlyUsedPlan";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -7,7 +8,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-function TargetCalorie() {
+async function TargetCalorie() {
+  const { currentlyUsedPlan } = await getCurrentlyUsedPlan();
+
   return (
     <Card className="bg-primary w-full">
       <CardHeader>
@@ -16,7 +19,12 @@ function TargetCalorie() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <CardTitle className="text-3xl font-black text-white">1,558</CardTitle>
+        {!currentlyUsedPlan && (
+          <CardTitle className="text-white">No Plan Selected</CardTitle>
+        )}
+        <CardTitle className="text-5xl font-black text-white">
+          {currentlyUsedPlan?.target_calories}
+        </CardTitle>
       </CardContent>
     </Card>
   );

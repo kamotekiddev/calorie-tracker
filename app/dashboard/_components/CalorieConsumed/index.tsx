@@ -14,7 +14,7 @@ function CalorieConsumed() {
         <CardDescription className="text-white">Calorie Intake</CardDescription>
       </CardHeader>
       <CardContent>
-        <CardTitle className="text-3xl font-black text-white">779</CardTitle>
+        <CardTitle className="text-5xl font-black text-white">779</CardTitle>
       </CardContent>
     </Card>
   );

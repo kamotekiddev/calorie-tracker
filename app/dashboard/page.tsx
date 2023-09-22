@@ -8,7 +8,7 @@ function Dashboard() {
   return (
     <main className="p-8">
       <div className="space-y-10">
-        <div className="flex gap-2">
+        <div className="flex flex-col md:flex-row gap-2">
           <TargetCalorie />
           <CalorieConsumed />
         </div>
