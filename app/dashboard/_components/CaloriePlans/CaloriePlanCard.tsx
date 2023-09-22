@@ -1,3 +1,4 @@
+import { Plan } from "@prisma/client";
 import {
   Card,
   CardContent,
@@ -6,16 +7,20 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-function CaloriePlanCard() {
+type CaloriePlanCardProps = {
+  plan: Plan;
+};
+
+function CaloriePlanCard({ plan }: CaloriePlanCardProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-slate-700 font-black">Plan A</CardTitle>
+        <CardTitle className="text-slate-700 font-black">{plan.name}</CardTitle>
       </CardHeader>
       <CardContent>
         <CardDescription>Calorie Per Day</CardDescription>
         <CardTitle className="text-4xl text-primary font-black">
-          1,558
+          {plan.target_calories}
         </CardTitle>
       </CardContent>
     </Card>
