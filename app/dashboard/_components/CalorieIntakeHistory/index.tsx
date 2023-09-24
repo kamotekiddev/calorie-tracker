@@ -1,5 +1,6 @@
-import CalorieIntakeListItem from "./CalorieIntakeListItem";
+import Link from "next/link";
 import getTodaysCalorieIntake from "@/actions/getTodaysCalorieIntake";
+import TodaysCalorieIntakeList from "./TodaysCalorieIntakeList";
 
 async function CalorieIntakeHistory() {
   const { todaysCalorieIntakes } = await getTodaysCalorieIntake();
@@ -8,17 +9,12 @@ async function CalorieIntakeHistory() {
     <article>
       <div className="flex gap-4 mb-4 justify-between items-center">
         <h1 className="text-xl font-bold">Todays Intake</h1>
+        <Link className="flex hover:underline" href="/calorie-intakes/history">
+          View History
+        </Link>
       </div>
-      <section className="grid border border-b-none rounded-lg overflow-hidden">
-        {!todaysCalorieIntakes?.length && (
-          <div className="p-4">No Data Found.</div>
-        )}
-        {todaysCalorieIntakes?.map((calorieIntake) => (
-          <CalorieIntakeListItem
-            key={calorieIntake.id}
-            calorieIntake={calorieIntake}
-          />
-        ))}
+      <section>
+        <TodaysCalorieIntakeList todaysCalorieIntakes={todaysCalorieIntakes} />
       </section>
     </article>
   );
