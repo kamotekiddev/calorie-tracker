@@ -12,9 +12,7 @@ function Dashboard() {
           <TargetCalorie />
           <CalorieConsumed />
         </div>
-        <CaloriePlans />
         <CalorieIntakeHistory />
-        <WeightHistory />
       </div>
     </main>
   );

@@ -1,5 +1,3 @@
-import Link from "next/link";
-import { buttonVariants } from "@/components/ui/button";
 import CalorieIntakeListItem from "./CalorieIntakeListItem";
 import getTodaysCalorieIntake from "@/actions/getTodaysCalorieIntake";
 
@@ -9,13 +7,7 @@ async function CalorieIntakeHistory() {
   return (
     <article>
       <div className="flex gap-4 mb-4 justify-between items-center">
-        <h1 className="text-xl font-bold">Calorie Intake</h1>
-        <Link
-          href="/calorie-intakes/intake"
-          className={buttonVariants({ size: "sm" })}
-        >
-          Intake Calorie
-        </Link>
+        <h1 className="text-xl font-bold">Todays Intake</h1>
       </div>
       <section className="grid border border-b-none rounded-lg overflow-hidden">
         {!todaysCalorieIntakes?.length && (
