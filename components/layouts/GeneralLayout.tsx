@@ -7,7 +7,7 @@ type GeneralLayoutProps = {
 
 function GeneralLayout({ children }: GeneralLayoutProps) {
     return (
-        <div>
+        <div className='h-screen grid grid-rows-[auto_1fr] overflow-auto'>
             <Header />
             {children}
         </div>

@@ -53,12 +53,11 @@ function IntakeCalorieForm() {
         }
     };
 
+    // TODO make this a modal
+
     return (
         <Form {...form}>
-            <form
-                className='w-full max-w-xl'
-                onSubmit={form.handleSubmit(onSubmit)}
-            >
+            <form className='w-full' onSubmit={form.handleSubmit(onSubmit)}>
                 <Card>
                     <CardHeader>
                         <CardTitle>Intake Calorie</CardTitle>
