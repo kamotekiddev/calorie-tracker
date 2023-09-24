@@ -8,6 +8,7 @@ const getTodaysCalorieIntake = async () => {
     if (!user) throw new Error("Unauthorized");
 
     const todaysCalorieIntakes = await client.calorieIntake.findMany({
+      orderBy: { createdAt: "desc" },
       where: {
         user_id: user.id,
         createdAt: {

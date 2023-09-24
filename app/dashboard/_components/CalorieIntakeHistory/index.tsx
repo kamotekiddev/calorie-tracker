@@ -1,6 +1,7 @@
 import Link from "next/link";
 import getTodaysCalorieIntake from "@/actions/getTodaysCalorieIntake";
 import TodaysCalorieIntakeList from "./TodaysCalorieIntakeList";
+import { Separator } from "@/components/ui/separator";
 
 async function CalorieIntakeHistory() {
   const { todaysCalorieIntakes } = await getTodaysCalorieIntake();
@@ -14,6 +15,7 @@ async function CalorieIntakeHistory() {
         </Link>
       </div>
       <section>
+        <Separator />
         <TodaysCalorieIntakeList todaysCalorieIntakes={todaysCalorieIntakes} />
       </section>
     </article>

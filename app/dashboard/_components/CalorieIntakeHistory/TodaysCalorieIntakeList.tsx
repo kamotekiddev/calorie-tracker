@@ -17,7 +17,7 @@ function TodaysCalorieIntakeList({
   return (
     <Table>
       <TableHeader>
-        <TableRow className="uppercase tracking-wide">
+        <TableRow className="uppercase bg-muted/50 tracking-wide">
           <TableHead className="w-[100px]">Calories</TableHead>
           <TableHead>Description</TableHead>
         </TableRow>

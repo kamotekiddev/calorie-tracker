@@ -1,8 +1,8 @@
 import { redirect } from "next/navigation";
 import React, { ReactNode } from "react";
 
-import Header from "./_components/Header";
 import getUserPlans from "@/actions/getUserPlans";
+import GeneralLayout from "@/components/layouts/GeneralLayout";
 
 type DashboardLayoutProps = {
   children: ReactNode;
@@ -13,12 +13,7 @@ async function Layout({ children }: DashboardLayoutProps) {
 
   if (!error && !plans?.length) redirect("/plans/create-plan");
 
-  return (
-    <div>
-      <Header />
-      {children}
-    </div>
-  );
+  return <GeneralLayout>{children}</GeneralLayout>;
 }
 
 export default Layout;
