@@ -1,19 +1,19 @@
-import { redirect } from "next/navigation";
-import React, { ReactNode } from "react";
+import { redirect } from 'next/navigation';
+import React, { ReactNode } from 'react';
 
-import getUserPlans from "@/actions/getUserPlans";
-import GeneralLayout from "@/components/layouts/GeneralLayout";
+import getUserPlans from '@/actions/getUserPlans';
+import GeneralLayout from '@/components/layouts/GeneralLayout';
 
 type DashboardLayoutProps = {
-  children: ReactNode;
+    children: ReactNode;
 };
 
 async function Layout({ children }: DashboardLayoutProps) {
-  const { plans, error } = await getUserPlans();
+    const { plans, error } = await getUserPlans();
 
-  if (!error && !plans?.length) redirect("/plans/create-plan");
+    if (!error && !plans?.length) redirect('/plans/create-plan');
 
-  return <GeneralLayout>{children}</GeneralLayout>;
+    return <GeneralLayout>{children}</GeneralLayout>;
 }
 
 export default Layout;

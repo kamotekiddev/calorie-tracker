@@ -1,17 +1,19 @@
-"use client";
-import { ReactNode } from "react";
-import { QueryClientProvider, QueryClient } from "react-query";
+'use client';
+import { ReactNode } from 'react';
+import { QueryClientProvider, QueryClient } from 'react-query';
 
 type QueryProviderProps = {
-  children: ReactNode;
+    children: ReactNode;
 };
 
 function QueryProvider({ children: chidlren }: QueryProviderProps) {
-  const queryClient = new QueryClient();
+    const queryClient = new QueryClient();
 
-  return (
-    <QueryClientProvider client={queryClient}>{chidlren}</QueryClientProvider>
-  );
+    return (
+        <QueryClientProvider client={queryClient}>
+            {chidlren}
+        </QueryClientProvider>
+    );
 }
 
 export default QueryProvider;
