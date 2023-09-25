@@ -41,7 +41,7 @@ function UserMenu() {
 
     return (
         <Sheet open={open} onOpenChange={setOpen}>
-            <SheetTrigger>
+            <SheetTrigger asChild>
                 <Button size='icon' variant='outline'>
                     <Menu />
                 </Button>
