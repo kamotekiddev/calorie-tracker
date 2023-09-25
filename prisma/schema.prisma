@@ -65,10 +65,3 @@ model CalorieIntake {
   user_id String
   User    User   @relation(fields: [user_id], references: [id])
 }
-
-model Weight {
-  id        String   @id @default(uuid())
-  weigh     Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
