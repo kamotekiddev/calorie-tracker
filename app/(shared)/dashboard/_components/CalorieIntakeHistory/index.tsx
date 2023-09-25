@@ -2,12 +2,13 @@ import Link from 'next/link';
 import { Separator } from '@/components/ui/separator';
 import getTodaysCalorieIntake from '@/actions/getTodaysCalorieIntake';
 import TodaysCalorieIntakeList from './TodaysCalorieIntakeList';
+import ErrorMessage from '@/components/ErrorMessage';
 
 async function CalorieIntakeHistory() {
     const { todaysCalorieIntakes, error, isError } =
         await getTodaysCalorieIntake();
 
-    if (isError) return error;
+    if (isError) return <ErrorMessage error={error} />;
 
     return (
         <article>
