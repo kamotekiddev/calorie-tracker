@@ -19,6 +19,8 @@ import {
 } from '@/components/ui/sheet';
 import { Separator } from '../ui/separator';
 import Navlink from './Navlink';
+import { Menu } from 'lucide-react';
+import { useState } from 'react';
 
 const getUserInitial = (name: string) => {
     if (!name) return;
@@ -32,19 +34,17 @@ const getUserInitial = (name: string) => {
 };
 
 function UserMenu() {
+    const [open, setOpen] = useState(false);
     const { data: session } = useSession();
 
     const userInitial = getUserInitial(session?.user?.name!);
 
-    // TODO make this a drawer or sheet on shadcn ui
-
     return (
-        <Sheet>
+        <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger>
-                <Avatar>
-                    <AvatarImage src={session?.user?.image!} />
-                    <AvatarFallback>{userInitial}</AvatarFallback>
-                </Avatar>
+                <Button size='icon' variant='outline'>
+                    <Menu />
+                </Button>
             </SheetTrigger>
             <SheetContent className='w-[350px]'>
                 <div className='space-y-4'>
@@ -63,7 +63,7 @@ function UserMenu() {
                         </div>
                     </div>
                     <Separator />
-                    <div className='grid'>
+                    <div className='grid' onClick={() => setOpen(false)}>
                         <Navlink href='/dashboard'>Dashboard</Navlink>
                         <Navlink href='/plans'>Plans</Navlink>
                     </div>
