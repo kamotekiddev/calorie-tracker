@@ -13,6 +13,21 @@ export async function PUT(req: NextRequest) {
                 { status: 401 },
             );
 
+        const existingPlan = await client.plan.findUnique({
+            where: { id },
+        });
+
+        if (!existingPlan)
+            return NextResponse.json(
+                { message: 'Plan not found' },
+                { status: 404 },
+            );
+
+        await client.plan.update({
+            where: { used_by_id: user.id },
+            data: { used_by_id: null },
+        });
+
         const selectedPlan = await client.plan.update({
             where: { id },
             data: { used_by_id: user.id },

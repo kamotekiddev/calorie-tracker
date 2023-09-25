@@ -8,6 +8,7 @@ const getUserPlans = async () => {
 
         const plans = await client.plan.findMany({
             where: { user_id: user.id },
+            orderBy: { createdAt: 'desc' },
         });
 
         return { plans };

@@ -1,6 +1,7 @@
 'use client';
 
-import { Plan } from '@prisma/client';
+import { isAxiosError } from 'axios';
+import { useRouter } from 'next/navigation';
 import {
     Table,
     TableBody,
@@ -9,16 +10,36 @@ import {
     TableHeader,
     TableRow,
 } from '@/components/ui/table';
+import { Plan } from '@prisma/client';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { useUpdatePlan } from '@/hooks/usePlan';
+import { useToast } from '@/components/ui/use-toast';
 
 type UserPlansProps = {
     userPlans?: Plan[];
 };
 
 function UserPlans({ userPlans = [] }: UserPlansProps) {
+    const router = useRouter();
+    const { toast } = useToast();
     const changePlan = useUpdatePlan();
+
+    const handleChangePlan = async (id: string) => {
+        try {
+            const { data } = await changePlan.mutateAsync(id);
+            router.refresh();
+            toast({ title: 'Success', description: data.message });
+        } catch (error) {
+            if (isAxiosError<{ message: string }>(error))
+                toast({
+                    title: 'Error Occured',
+                    description:
+                        error.response?.data.message ||
+                        'Something went wrong, Please try again later.',
+                });
+        }
+    };
 
     return (
         <Table>
@@ -47,7 +68,7 @@ function UserPlans({ userPlans = [] }: UserPlansProps) {
                                 size='sm'
                                 variant='outline'
                                 disabled={changePlan.isLoading}
-                                onClick={() => changePlan.mutate(plan.id)}
+                                onClick={() => handleChangePlan(plan.id)}
                             >
                                 Use
                             </Button>
