@@ -35,7 +35,7 @@ function UserMenu() {
             </SheetTrigger>
             <SheetContent className='w-[350px]'>
                 <div className='space-y-4'>
-                    <div className='flex gap-4'>
+                    <div className='flex gap-4 items-center'>
                         <Avatar>
                             <AvatarImage src={session?.user?.image!} />
                             <AvatarFallback>{userInitial}</AvatarFallback>
