@@ -3,6 +3,7 @@ import { Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import UserMenu from './UserMenu';
 import Link from 'next/link';
+import IntakeCalorieModal from '../IntakeCalorieModal';
 
 function Header() {
     return (
@@ -12,12 +13,7 @@ function Header() {
                     <Image src='/logo.svg' width={40} height={40} alt='Logo' />
                 </div>
                 <div className='flex items-center gap-2'>
-                    <Link href='/dashboard/calorie-intakes/intake'>
-                        <Button className='flex gap-2'>
-                            Intake
-                            <Plus className='h-4 w-4' />
-                        </Button>
-                    </Link>
+                    <IntakeCalorieModal />
                     <UserMenu />
                 </div>
             </div>
