@@ -2,8 +2,9 @@ import client from '@/lib/client';
 import getCurrentUser from '@/lib/getCurrentUser';
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET(req: NextRequest) {
+export async function PUT(req: NextRequest) {
     try {
+        const { id } = await req.json();
         const user = await getCurrentUser();
 
         if (!user)
@@ -12,11 +13,15 @@ export async function GET(req: NextRequest) {
                 { status: 401 },
             );
 
-        const currentlyUsedPlan = await client.plan.findUnique({
-            where: { used_by_id: user?.id },
+        const selectedPlan = await client.plan.update({
+            where: { id },
+            data: { used_by_id: user.id },
         });
 
-        return NextResponse.json(currentlyUsedPlan);
+        return NextResponse.json({
+            message: 'Plan selected',
+            body: selectedPlan,
+        });
     } catch (error) {
         return NextResponse.json({ error }, { status: 500 });
     }

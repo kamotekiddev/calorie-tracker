@@ -16,3 +16,8 @@ export const useSetupPlan = () =>
         AxiosError,
         PlanFields
     >((data) => axios.post('/api/plans/setup-plan', data));
+
+export const useUpdatePlan = () =>
+    useMutation<{ data: { message: string; body: Plan } }, AxiosError, string>(
+        (id) => axios.put('/api/plans/change-plan', { id }),
+    );
