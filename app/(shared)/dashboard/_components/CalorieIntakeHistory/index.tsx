@@ -1,7 +1,7 @@
 import Link from 'next/link';
+import { Separator } from '@/components/ui/separator';
 import getTodaysCalorieIntake from '@/actions/getTodaysCalorieIntake';
 import TodaysCalorieIntakeList from './TodaysCalorieIntakeList';
-import { Separator } from '@/components/ui/separator';
 
 async function CalorieIntakeHistory() {
     const { todaysCalorieIntakes } = await getTodaysCalorieIntake();
@@ -11,7 +11,7 @@ async function CalorieIntakeHistory() {
             <div className='flex gap-4 mb-4 justify-between items-center'>
                 <h1 className='text-xl font-bold'>Todays Intake</h1>
                 <Link
-                    className='flex hover:underline'
+                    className='flex underline hover:text-primary'
                     href='/dashboard/calorie-intakes/history'
                 >
                     View History

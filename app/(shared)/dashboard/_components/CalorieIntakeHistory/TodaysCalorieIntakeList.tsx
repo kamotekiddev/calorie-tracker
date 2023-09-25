@@ -20,6 +20,7 @@ function TodaysCalorieIntakeList({
                 <TableRow className='uppercase bg-muted/50 tracking-wide'>
                     <TableHead className='w-[100px]'>Calories</TableHead>
                     <TableHead>Description</TableHead>
+                    <TableHead className='text-right'>Intake Time</TableHead>
                 </TableRow>
             </TableHeader>
             <TableBody>
@@ -27,6 +28,9 @@ function TodaysCalorieIntakeList({
                     <TableRow key={todaysCalorie.id}>
                         <TableCell>{todaysCalorie.calories} cal</TableCell>
                         <TableCell>{todaysCalorie.description}</TableCell>
+                        <TableCell className='text-right'>
+                            {todaysCalorie.createdAt.toLocaleTimeString()}
+                        </TableCell>
                     </TableRow>
                 ))}
             </TableBody>
