@@ -9,12 +9,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { Form } from '@/components/ui/form';
-import {
-    CalorieIntakeFields,
-    CalorieIntakeSchema,
-} from '@/model/calorie-intake-schema';
 import { Button } from '@/components/ui/button';
-import { useIntakeCalorie } from '@/hooks/useCalorieIntakes';
 import { useToast } from '@/components/ui/use-toast';
 import {
     Dialog,
@@ -25,32 +20,34 @@ import {
     DialogTrigger,
 } from './ui/dialog';
 import FormInput from '@/components/form-elements/FormInput';
+import { PlanFields, PlanSchema } from '@/model/plan-sechema';
+import { useCreatePlan } from '@/hooks/usePlan';
 
-const defaultValues: CalorieIntakeFields = {
-    calories: 0,
-    description: '',
+const defaultValues: PlanFields = {
+    target_calories: 0,
+    name: '',
 };
 
-function IntakeCalorieModal() {
+function CreatePlanModal() {
     const [open, setOpen] = useState(false);
     const { toast } = useToast();
     const router = useRouter();
-    const intakeCalorie = useIntakeCalorie();
+    const createPlan = useCreatePlan();
 
-    const form = useForm<CalorieIntakeFields>({
+    const form = useForm<PlanFields>({
         defaultValues,
-        resolver: zodResolver(CalorieIntakeSchema),
+        resolver: zodResolver(PlanSchema),
     });
 
     const closeModal = () => {
-        if (intakeCalorie.isLoading) return null;
+        if (createPlan.isLoading) return null;
         form.reset(defaultValues);
         setOpen(false);
     };
 
-    const onSubmit = async (values: CalorieIntakeFields) => {
+    const onSubmit = async (values: PlanFields) => {
         try {
-            await intakeCalorie.mutateAsync(values);
+            await createPlan.mutateAsync(values);
             router.refresh();
             form.reset(defaultValues);
             closeModal();
@@ -72,8 +69,8 @@ function IntakeCalorieModal() {
     return (
         <Dialog open={open} onOpenChange={handleOpenChange}>
             <DialogTrigger asChild>
-                <Button className='flex gap-2'>
-                    Intake
+                <Button size='sm' variant='outline' className='flex gap-2'>
+                    New Plan
                     <Plus className='w-4 h-4' />
                 </Button>
             </DialogTrigger>
@@ -85,21 +82,21 @@ function IntakeCalorieModal() {
                     >
                         <div className='space-y-4'>
                             <DialogHeader>
-                                <DialogTitle>Intake Calorie</DialogTitle>
+                                <DialogTitle>New Plan</DialogTitle>
                             </DialogHeader>
                             <FormInput
-                                label='Calories'
-                                name='calories'
+                                label='Plan Name'
+                                name='name'
                                 control={form.control}
                             />
                             <FormInput
-                                label='Description'
-                                name='description'
+                                label='Target Calories'
+                                name='target_calories'
                                 control={form.control}
                             />
                             <DialogFooter className='flex gap-2 justify-end'>
-                                <Button disabled={intakeCalorie.isLoading}>
-                                    Intake Calories
+                                <Button disabled={createPlan.isLoading}>
+                                    Create
                                 </Button>
                             </DialogFooter>
                         </div>
@@ -110,6 +107,6 @@ function IntakeCalorieModal() {
     );
 }
 
-export default dynamic(() => Promise.resolve(IntakeCalorieModal), {
+export default dynamic(() => Promise.resolve(CreatePlanModal), {
     ssr: false,
 });
