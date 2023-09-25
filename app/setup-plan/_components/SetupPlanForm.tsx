@@ -15,7 +15,9 @@ import {
 import FormInput from '@/components/form-elements/FormInput';
 import { Form } from '@/components/ui/form';
 import { PlanFields, PlanSchema } from '@/model/plan-sechema';
-import useCreatePlan from '@/hooks/usePlan';
+import { useSetupPlan } from '@/hooks/usePlan';
+import { useToast } from '@/components/ui/use-toast';
+import { isAxiosError } from 'axios';
 
 const defaultValues: PlanFields = {
     target_calories: 1500,
@@ -23,8 +25,9 @@ const defaultValues: PlanFields = {
 };
 
 function SetupPlanForm() {
+    const { toast } = useToast();
     const router = useRouter();
-    const createPlan = useCreatePlan();
+    const setupPlan = useSetupPlan();
 
     const form = useForm<PlanFields>({
         defaultValues,
@@ -33,9 +36,15 @@ function SetupPlanForm() {
 
     const onSubmit = async (values: PlanFields) => {
         try {
-            await createPlan.mutateAsync(values);
+            await setupPlan.mutateAsync(values);
             router.replace('/dashboard');
-        } catch (error) {}
+        } catch (error) {
+            if (isAxiosError<{ message: string }>(error))
+                toast({
+                    title: 'Error Occured',
+                    description: error.response?.data.message,
+                });
+        }
     };
 
     return (
@@ -66,7 +75,7 @@ function SetupPlanForm() {
                         />
                     </CardContent>
                     <CardFooter className='flex justify-end'>
-                        <Button disabled={createPlan.isLoading} type='submit'>
+                        <Button disabled={setupPlan.isLoading} type='submit'>
                             Create Plan
                         </Button>
                     </CardFooter>

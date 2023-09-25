@@ -15,7 +15,7 @@ import {
 import FormInput from '@/components/form-elements/FormInput';
 import { Form } from '@/components/ui/form';
 import { PlanFields, PlanSchema } from '@/model/plan-sechema';
-import useCreatePlan from '@/hooks/usePlan';
+import { useCreatePlan } from '@/hooks/usePlan';
 
 const defaultValues: PlanFields = {
     target_calories: 1500,
