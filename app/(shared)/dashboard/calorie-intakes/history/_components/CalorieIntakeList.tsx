@@ -7,6 +7,7 @@ import {
     TableRow,
 } from '@/components/ui/table';
 import { CalorieIntake } from '@prisma/client';
+import EmptyState from '@/components/EmptyState';
 
 type CalorieIntakeListProps = {
     calorieIntakeHistory?: CalorieIntake[];
@@ -14,6 +15,8 @@ type CalorieIntakeListProps = {
 function CalorieIntakeList({
     calorieIntakeHistory = [],
 }: CalorieIntakeListProps) {
+    if (!calorieIntakeHistory.length) return <EmptyState />;
+
     return (
         <Table>
             <TableHeader className='uppercase tracking-wide'>

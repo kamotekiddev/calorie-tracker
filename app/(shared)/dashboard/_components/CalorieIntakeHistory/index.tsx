@@ -4,7 +4,10 @@ import getTodaysCalorieIntake from '@/actions/getTodaysCalorieIntake';
 import TodaysCalorieIntakeList from './TodaysCalorieIntakeList';
 
 async function CalorieIntakeHistory() {
-    const { todaysCalorieIntakes } = await getTodaysCalorieIntake();
+    const { todaysCalorieIntakes, error, isError } =
+        await getTodaysCalorieIntake();
+
+    if (isError) return error;
 
     return (
         <article>

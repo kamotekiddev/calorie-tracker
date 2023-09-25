@@ -1,5 +1,6 @@
 import client from '@/lib/client';
 import getCurrentUser from '@/lib/getCurrentUser';
+import getErrorMessage from '@/lib/getErrorMessage';
 
 const getTodaysCalorieIntake = async () => {
     try {
@@ -34,7 +35,7 @@ const getTodaysCalorieIntake = async () => {
 
         return { todaysCalorieIntakes };
     } catch (error) {
-        return { error };
+        return { isError: true, error: getErrorMessage(error) };
     }
 };
 

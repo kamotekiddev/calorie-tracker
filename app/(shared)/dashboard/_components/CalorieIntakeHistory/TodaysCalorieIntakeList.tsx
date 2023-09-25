@@ -1,3 +1,4 @@
+import EmptyState from '@/components/EmptyState';
 import {
     Table,
     TableBody,
@@ -14,6 +15,8 @@ type TodaysCalorieIntakeListProps = {
 function TodaysCalorieIntakeList({
     todaysCalorieIntakes = [],
 }: TodaysCalorieIntakeListProps) {
+    if (!todaysCalorieIntakes.length) return <EmptyState />;
+
     return (
         <Table>
             <TableHeader className='bg-muted'>
