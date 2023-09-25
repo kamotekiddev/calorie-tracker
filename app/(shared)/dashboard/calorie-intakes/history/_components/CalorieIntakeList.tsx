@@ -18,8 +18,11 @@ function CalorieIntakeList({
         <Table>
             <TableHeader className='uppercase tracking-wide'>
                 <TableRow className='bg-muted/50'>
-                    <TableHead className='w-[100px]'>Calories</TableHead>
+                    <TableHead>Calories</TableHead>
                     <TableHead>Description</TableHead>
+                    <TableHead className='text-right'>
+                        Intake Date Time
+                    </TableHead>
                 </TableRow>
             </TableHeader>
             <TableBody>
@@ -29,6 +32,9 @@ function CalorieIntakeList({
                             {calorieIntake.calories}
                         </TableCell>
                         <TableCell>{calorieIntake.description}</TableCell>
+                        <TableCell className='text-right'>
+                            {calorieIntake.createdAt.toLocaleString()}
+                        </TableCell>
                     </TableRow>
                 ))}
             </TableBody>
