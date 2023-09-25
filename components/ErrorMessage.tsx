@@ -2,10 +2,12 @@ import { XCircle } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 type ErrorMessageProps = {
-    error: string;
+    error?: string;
 };
 
-function ErrorMessage({ error }: ErrorMessageProps) {
+function ErrorMessage({
+    error = 'Please try again later.',
+}: ErrorMessageProps) {
     return (
         <Alert variant='destructive'>
             <XCircle className='h-5 w-5' />
