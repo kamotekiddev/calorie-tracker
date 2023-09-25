@@ -11,7 +11,7 @@ type DashboardLayoutProps = {
 async function Layout({ children }: DashboardLayoutProps) {
     const { plans, error } = await getUserPlans();
 
-    if (!error && !plans?.length) redirect('/plans/create-plan');
+    if (!error && !plans?.length) redirect('/setup-plan');
 
     return <GeneralLayout>{children}</GeneralLayout>;
 }
