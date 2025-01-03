@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import * as z from 'zod';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
@@ -33,24 +34,38 @@ const defaultValues: SignInFormField = {
 function SignInForm() {
     const router = useRouter();
     const { toast } = useToast();
+
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
     const form = useForm<SignInFormField>({
+        mode: 'onBlur',
         defaultValues,
         resolver: zodResolver(signInFormSchema),
     });
 
-    const onSubmit = (values: SignInFormField) =>
-        signIn('credentials', { ...values, redirect: false }).then((res) => {
-            if (!res?.ok || res?.error)
-                toast({
-                    title: 'Error Occured',
-                    description: 'Error signing in',
-                    variant: 'destructive',
-                });
-            router.replace('/dashboard');
-        });
+    const onSubmit = (values: SignInFormField) => {
+        if (isSubmitting) return;
 
-    const loginWithGoogle = () =>
-        signIn('google', { callbackUrl: '/dashboard' });
+        setIsSubmitting(true);
+        signIn('credentials', { ...values, redirect: false })
+            .then((res) => {
+                if (!res?.ok || res?.error)
+                    toast({
+                        title: 'Error Occured',
+                        description: 'Error signing in',
+                        variant: 'destructive',
+                    });
+                router.replace('/dashboard');
+            })
+            .finally(() => setIsSubmitting(false));
+    };
+
+    const loginWithGoogle = () => {
+        setIsSubmitting(true);
+        signIn('google', { callbackUrl: '/dashboard' }).finally(() =>
+            setIsSubmitting(false),
+        );
+    };
 
     return (
         <Form {...form}>
@@ -76,10 +91,15 @@ function SignInForm() {
                             type='password'
                             control={form.control}
                         />
-                        <Button type='submit' className='w-full'>
+                        <Button
+                            disabled={isSubmitting}
+                            type='submit'
+                            className='w-full'
+                        >
                             Sign In
                         </Button>
                         <Button
+                            disabled={isSubmitting}
                             onClick={loginWithGoogle}
                             variant='outline'
                             className='w-full'
